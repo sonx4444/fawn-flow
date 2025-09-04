@@ -1,0 +1,11 @@
+langchain
+langgraph
+langchain-openai
+langchain-community
+langchain-tavily
+langchain-experimental
+tavily-python
+python-dotenv
+langchain-google-community
+ddgs
+rich

@@ -1,0 +1,24 @@
+
+[project]
+name = "fawn-flow"
+version = "0.1.0"
+description = "A simplified, autonomous research agent based on DeerFlow."
+dependencies = [
+    "langchain",
+    "langgraph",
+    "langchain-openai",
+    "tavily-python",
+    "uv",
+    "python-dotenv",
+    "langchain-community",
+    "langchain-experimental",
+    "langchain-tavily",
+    "langchain-google-community",
+    "ddgs",
+    "rich"
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff",
+]
