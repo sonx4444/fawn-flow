@@ -17,6 +17,15 @@ elif SEARCH_ENGINE == "google":
     api_wrapper = GoogleSearchAPIWrapper()
     search_tool = GoogleSearchRun(api_wrapper=api_wrapper)
 
+elif SEARCH_ENGINE == "brave":
+    # Brave Search requires API key
+    from langchain_community.tools.brave_search.tool import BraveSearch
+    from langchain_community.utilities.brave_search import BraveSearchWrapper
+
+    config.validate_brave_search()
+    api_wrapper = BraveSearchWrapper()
+    search_tool = BraveSearch(api_wrapper=api_wrapper)
+
 elif SEARCH_ENGINE in ("duckduckgo", "ddg"):
     # DuckDuckGo requires no API key
     from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
@@ -25,5 +34,5 @@ elif SEARCH_ENGINE in ("duckduckgo", "ddg"):
 
 else:
     raise ValueError(
-        "Unsupported SEARCH_ENGINE. Use one of: tavily, google, duckduckgo"
+        "Unsupported SEARCH_ENGINE. Use one of: tavily, google, brave, duckduckgo"
     )

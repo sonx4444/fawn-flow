@@ -4,9 +4,10 @@ Configuration
 Environment variables
 ---------------------
 - `OPENAI_API_KEY` (required)
-- `SEARCH_ENGINE` = `tavily` | `google` | `duckduckgo` (default: `duckduckgo`)
+- `SEARCH_ENGINE` = `tavily` | `google` | `brave` | `duckduckgo` (default: `duckduckgo`)
 - `TAVILY_API_KEY` (required if `SEARCH_ENGINE=tavily`)
 - `GOOGLE_API_KEY`, `GOOGLE_CSE_ID` (required if `SEARCH_ENGINE=google`)
+- `BRAVE_SEARCH_API_KEY` (required if `SEARCH_ENGINE=brave`)
 
 How it works
 ------------

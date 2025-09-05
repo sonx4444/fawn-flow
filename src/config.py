@@ -14,6 +14,7 @@ class Config:
         self.TAVILY_API_KEY: Optional[str] = self._get("TAVILY_API_KEY")
         self.GOOGLE_API_KEY: Optional[str] = self._get("GOOGLE_API_KEY")
         self.GOOGLE_CSE_ID: Optional[str] = self._get("GOOGLE_CSE_ID")
+        self.BRAVE_SEARCH_API_KEY: Optional[str] = self._get("BRAVE_SEARCH_API_KEY")
         self.SEARCH_ENGINE: str = self._get("SEARCH_ENGINE", "duckduckgo").lower()
         self.LANGCHAIN_PROJECT: str = self._get("LANGCHAIN_PROJECT", "FawnFlow")
 
@@ -46,6 +47,9 @@ class Config:
     def validate_google_search(self) -> None:
         self.require("GOOGLE_API_KEY")
         self.require("GOOGLE_CSE_ID")
+
+    def validate_brave_search(self) -> None:
+        self.require("BRAVE_SEARCH_API_KEY")
 
 
 config = Config()

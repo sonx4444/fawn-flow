@@ -1,5 +1,6 @@
 
 from pathlib import Path
+import json
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from rich.console import Console
@@ -33,8 +34,16 @@ def coordinator_node(state: FawnState) -> FawnState:
 
 def planner_node(state: FawnState) -> FawnState:
     console.rule("PLANNER")
+    
+    # Serialize the current plan to a string, or use a default message.
+    if state.get("current_plan"):
+        plan_str = state["current_plan"].model_dump_json(indent=2)
+    else:
+        plan_str = "No plan created yet."
+
     prompt = PromptTemplate.from_template(planner_prompt_template).format(
         research_topic=state["research_topic"],
+        plan=plan_str,
         observations="\n".join(state["observations"]),
         today=state.get("today", "")
     )

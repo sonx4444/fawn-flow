@@ -12,29 +12,36 @@
 
 ---
 
-An elegant, minimal research agent that plans, searches, executes small code tasks, and produces a clean report — end to end.
+FawnFlow is an elegant, minimal research agent that plans, searches, executes small code tasks, and produces a clean report — end to end. It is designed to be a small, readable codebase that you can understand in one sitting.
 
-FawnFlow is inspired by the excellent (and more feature‑rich) DeerFlow project by ByteDance. If you need a production‑grade, full‑stack deep research system, check out DeerFlow here: [bytedance/deer-flow](https://github.com/bytedance/deer-flow).
+It is inspired by the excellent (and more feature‑rich) [DeerFlow project by ByteDance](https://github.com/bytedance/deer-flow).
+
+## 🛠️ How It Works
+
+FawnFlow operates on a clear, stateful loop powered by LangGraph. The agent's lifecycle is a cycle of planning, execution, and observation.
+
+<div align="center">
+  <img src="./docs/flow-diagram.svg" alt="FawnFlow Workflow Diagram" width="720">
+</div>
+
+1.  **Plan:** The **Planner** reviews the research goal, observations, and its own previous steps to create or revise a multi-step plan.
+2.  **Execute:** The next pending step is executed by the appropriate agent (`researcher` or `coder`), which performs its task and returns the results.
+3.  **Report:** Once the planner decides the research is complete, the **Reporter** synthesizes all observations and raw data into a final Markdown report.
 
 ## ✨ Key Features
 
-- 🧠 Adaptive planner: small, testable steps; adjusts based on observations
-- 🤖 Multi‑agent execution: `researcher` (web), `coder` (Python REPL)
-- 🔌 Pluggable search: Tavily, Google, DuckDuckGo
-- 📄 Markdown report: clean, readable final output
+- 🧠 **Stateful Planner**: Maintains and revises a persistent, multi-step plan.
+- 📝 **Enriched Context**: Retains raw tool outputs for high-fidelity, detailed reporting.
+- 🤖 **Multi-Agent Execution**: Utilizes a `researcher` for web searches and a `coder` for running Python code.
+- 🔌 **Pluggable Search**: Easily switch between Tavily, Google, Brave, and DuckDuckGo.
+- 📄 **Markdown Reports**: Generates clean, readable final reports.
 
-## Why FawnFlow?
+## 🚀 Quick Start
 
-- Small, readable codebase you can understand in one sitting
-- Clear LangGraph flow: Planner → Researcher → Coder → Reporter
-- Uses a single powerful LLM for planning and reporting
-
-Quick start
------------
 ```bash
 # PowerShell
 $env:OPENAI_API_KEY="..."
-# Optional: pick search engine (tavily|google|duckduckgo)
+# Optional: pick search engine (tavily|google|brave|duckduckgo)
 $env:SEARCH_ENGINE="duckduckgo"
 # For Google search engine
 # $env:GOOGLE_API_KEY="..."; $env:GOOGLE_CSE_ID="..."
@@ -42,18 +49,23 @@ $env:SEARCH_ENGINE="duckduckgo"
 uv run python .\main.py "What are the latest approaches to retrieval-augmented generation?"
 ```
 
-Configuration
--------------
-Environment variables (you can also put these in a `.env` file):
-- OPENAI_API_KEY (required)
-- SEARCH_ENGINE = tavily | google | duckduckgo (default: duckduckgo)
-- TAVILY_API_KEY (required if SEARCH_ENGINE=tavily)
-- GOOGLE_API_KEY, GOOGLE_CSE_ID (required if SEARCH_ENGINE=google)
+## ⚙️ Configuration
+
+Configuration is handled via environment variables. You can also place these in a `.env` file in the project root.
+
+| Variable | Description | Default |
+|---|---|---|
+| `OPENAI_API_KEY` | **Required.** Your OpenAI API key. | (none) |
+| `SEARCH_ENGINE` | The search engine to use. | `duckduckgo` |
+| `TAVILY_API_KEY` | Required if `SEARCH_ENGINE=tavily`. | (none) |
+| `GOOGLE_API_KEY` | Required if `SEARCH_ENGINE=google`. | (none) |
+| `GOOGLE_CSE_ID` | Required if `SEARCH_ENGINE=google`. | (none) |
+| `BRAVE_SEARCH_API_KEY` | Required if `SEARCH_ENGINE=brave`. | (none) |
 
 Centralized configuration and validation live in `src/config.py`.
 
-Project structure
------------------
+## 📂 Project Structure
+
 ```
 .
 ├─ main.py                 # CLI entry
@@ -65,35 +77,34 @@ Project structure
 │  ├─ graph/
 │  │  ├─ builder.py        # LangGraph graph builder
 │  │  ├─ nodes.py          # Nodes for planner/researcher/coder/reporter
-│  │  ├─ planner_model.py  # Pydantic schemas for plan
-│  │  └─ types.py          # State type
+│  │  └─ types.py          # Pydantic schemas for plan and state type
 │  ├─ tools/
 │  │  ├─ search.py         # Search tool with engine selection
 │  │  └─ python_repl.py    # Python REPL tool
 │  └─ prompts/             # Prompts for each role
-└─ docs/                   # Additional documentation (architecture, flow, config, prompts)
+└─ docs/                   # Additional documentation
 ```
 
-Docs
-----
+## 📚 Docs
+
 - `docs/architecture.md` — components and relationships
 - `docs/flow.md` — execution flow and streaming notes
 - `docs/configuration.md` — environment variables and examples
 - `docs/technologies.md` — libraries and services
 - `docs/prompts.md` — prompt roles and guidelines
 
-Roadmap
--------
+## 🗺️ Roadmap
+
 - Event streaming in the terminal (node starts/ends, tool snippets)
 - Optional JSON schemas and few‑shot examples for prompts
 - Pluggable reporters (Markdown, HTML)
 
-Development
------------
-- Dependencies are managed via `uv` and `pyproject.toml`
-- Linting uses Ruff (optional)
+## 💻 Development
 
-License
--------
+- Dependencies are managed via `uv` and `pyproject.toml`.
+- Linting uses Ruff (optional).
+
+## 📄 License
+
 MIT
 

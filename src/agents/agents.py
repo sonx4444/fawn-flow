@@ -5,4 +5,9 @@ def create_agent_executor(llm, tools, prompt_template_str: str):
     """Creates a runnable agent executor."""
     prompt = PromptTemplate.from_template(prompt_template_str)
     agent = create_react_agent(llm, tools, prompt)
-    return AgentExecutor(agent=agent, tools=tools, verbose=True) # verbose=True for debugging
+    return AgentExecutor(
+        agent=agent, 
+        tools=tools, 
+        verbose=True,  # verbose=True for debugging
+        handle_parsing_errors=True  # Handle cases where LLM produces both final answer and actions
+    )

@@ -6,6 +6,7 @@ Technologies
 - Search engines:
   - Tavily (`langchain-tavily`)
   - Google Programmable Search (`langchain-google-community`)
+  - Brave Search (`langchain-community`)
   - DuckDuckGo (`langchain-community`)
 - Rich: terminal formatting and Markdown rendering
 - uv: Python package/run manager
