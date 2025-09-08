@@ -17,6 +17,24 @@ class Plan(BaseModel):
     plan: List[PlanStep]
 
 
+class ResearchResult(BaseModel):
+    """Structured output for researcher agent."""
+    reasoning: str
+    key_findings: List[str]
+    sources: List[str]
+    final_answer: str
+
+class CodingResult(BaseModel):
+    """Structured output for coder agent."""
+    reasoning: str
+    code_executed: str
+    execution_output: str
+    final_answer: str
+
+class ReportResult(BaseModel):
+    """Structured output for reporter."""
+    final_report: str
+
 class FawnState(MessagesState):
     """Represents the state of the FawnFlow workflow."""
     

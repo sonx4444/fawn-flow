@@ -21,3 +21,9 @@ Synthesize the provided information into a single, comprehensive report that dir
 - **Focus on the Goal:** The final report must be a complete and comprehensive answer to the user's original research query.
 
 Do not add any information that is not present in the collected data.
+
+**Output Format:**
+You MUST respond in pure JSON format with no additional text before or after:
+{{
+  "final_report": "Your complete Markdown-formatted research report here. Include proper headings, formatting, citations, and code blocks as needed."
+}}
